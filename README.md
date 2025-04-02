@@ -2,11 +2,13 @@
 
 This project uses the [NHL API](https://github.com/Zmalski/NHL-API-Reference) and [`rpi-rgb-led-matrix`](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master) to display daily scores on an LED display.
 
+[Example Display](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjBoMGE2dG1rcWN2bm0zZjh2Mm83NTRvdDczdzRxZXJvbTJwNWJmdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JUPn9ZXY5U3Y6KxcM8/giphy.gif)
+
 # Running
 
 You'll have to set up an LED RGB display and install the necessary requirements. I recommend following[this tutorial](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi/driving-matrices) for Raspberry Pi using the AdaFruit Matrix HAT+RTC. The tutorial above will install `rpi-rgb-led-matrix` into your python environment.
 
-Then install the additional python level requirements:
+Then install the additional python requirements:
 ```python
 pip install -r requirements.txt
 ``` 
