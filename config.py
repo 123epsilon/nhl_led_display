@@ -9,6 +9,9 @@ TEXT_SCORE_FONT_SIZE = 8
 TEXT_STANDARD_FONT_SIZE = 8
 TEXT_STATE_FONT_SIZE = 6
 DISPLAY_SCROLL_DELAY = 0.1 # delay before shifting pixels (in seconds), controls scroll speed
+EMERGENCY_POLLING_FREQUENCY = 10 # Number of seconds after which to poll when there's a network error
+POLLING_FREQUENCY = 300 # Number of seconds after which to poll for new data
+DISCONNECT_IMAGE_PATH = os.path.join(WORK_DIR, "img", "wifi-cross.png")
 
 MATRIX_ROWS = 16
 MATRIX_COLS = 32
