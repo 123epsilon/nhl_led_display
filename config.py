@@ -4,7 +4,7 @@ from rgbmatrix import RGBMatrixOptions
 WORK_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGE_CACHE_DIR = os.path.join(WORK_DIR, "nhl_team_logos")
 TEAM_LOGO_SIZE = (15, 10) # chosen to retain the 3:2 aspect ratio for NHL logos
-TEXT_FONT_PATH = "/home/dennis/Desktop/led_examples/rpi-rgb-led-matrix/fonts/bright_lights_.ttf"
+TEXT_FONT_PATH = os.path.join(WORK_DIR, "fonts", "bright_lights_.ttf")
 TEXT_SCORE_FONT_SIZE = 8
 TEXT_STANDARD_FONT_SIZE = 8
 TEXT_STATE_FONT_SIZE = 6
