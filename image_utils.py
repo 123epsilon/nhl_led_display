@@ -60,7 +60,7 @@ def create_game_image(awayLogoURL: str, homeLogoURL: str, awayShortName: str, ho
     # Draw the team names under the logos
     vneg_space = 2
     draw = ImageDraw.Draw(combined_image)
-    text_position = (0, image_height-vneg_space)
+    text_position = ((image_width - away_text_width) // 2, image_height-vneg_space)
     draw.text(text_position, awayShortName, font=font, fill=(255, 255, 255))
 
     text_position = (combined_width-home_text_width, image_height-vneg_space)
@@ -72,7 +72,7 @@ def create_game_image(awayLogoURL: str, homeLogoURL: str, awayShortName: str, ho
     draw.text(text_position, score_string, font=score_font, fill=(255, 255, 255))
 
     # Draw state text under the score
-    text_position = ((combined_width - state_text_width) // 2, away_text_height)
+    text_position = ((combined_width - state_text_width) // 2, text_position[1] + score_text_height)
     draw.text(text_position, state_string, font=state_font, fill=(255, 255, 255))
 
     return combined_image, combined_image.width, combined_image.height
