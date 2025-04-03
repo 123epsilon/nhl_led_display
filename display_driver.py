@@ -1,6 +1,7 @@
 import time
+from typing import List
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
-from image_utils import create_game_image, get_disconnect_image
+from image_utils import create_game_image, get_disconnect_image, concatenate_images
 from data_utils import get_daily_game_info
 from config import *
 import sys
@@ -9,14 +10,21 @@ def should_poll(game_info, elapsed_sec):
     poll_time = POLLING_FREQUENCY if game_info is not None else EMERGENCY_POLLING_FREQUENCY
     return elapsed_sec >= poll_time
 
-def scroll_game_image(game_info):
+def scroll_game_image(game_infos: List[dict]):
     options = get_led_matrix_options()
     matrix = RGBMatrix(options=options)
     # set up a backup image when connection is lost
-    if game_info is not None:
-        combined_image, combined_image_width, combined_image_height = create_game_image(**game_info)
+    if game_infos[0] is not None:
+        if len(game_infos) < 2:
+            game_infos = [game_infos[0]] * 2
+        combined_image, _, _ = create_game_image(**game_infos[0])
+        for game_info in game_infos[1:]:
+            next_image, _, _ = create_game_image(**game_info)
+            combined_image = concatenate_images(combined_image, next_image, MATRIX_COLS // 2)
     else:
-        combined_image, combined_image_width, combined_image_height = get_disconnect_image()
+        combined_image, _, _ = get_disconnect_image()
+
+    combined_image_width, combined_image_height = combined_image.width, combined_image.height
 
     try:
         x_offset = combined_image_width
@@ -46,22 +54,13 @@ if __name__ == "__main__":
     start = time.time()
     while True:
         try:
-            i = 0
-            game_info = game_data[i]
-            while i < len(game_data):
-                now = time.time()
-                elapsed = now - start
-                # refresh data at set intervals
-                if should_poll(game_info, elapsed):
-                    game_data = get_daily_game_info()
-                    start = time.time()
-                    # this shouldn't ever happen for daily games, but why not be safe?
-                    if i >= len(game_data):
-                        i = 0
-                
-                game_info = game_data[i]
-                scroll_game_image(game_info)
-                i += 1
+            now = time.time()
+            elapsed = now - start
+            # refresh data at set intervals
+            if should_poll(game_data[0], elapsed):
+                game_data = get_daily_game_info()
+                start = time.time()
+            scroll_game_image(game_data)
         except KeyboardInterrupt:
             # Graceful exit on Ctrl+C
             sys.exit(0)

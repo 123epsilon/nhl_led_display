@@ -31,6 +31,13 @@ def get_team_logo(svg_url: str) -> Image:
     image = image.resize(TEAM_LOGO_SIZE, Image.Resampling.LANCZOS)
     return image
 
+def concatenate_images(image1: Image, image2: Image, h_space: int):
+    combined_width, combined_height = image1.width + image2.width + h_space, image1.height + image2.height
+    combined_image = Image.new('RGB', (combined_width, combined_height))
+    combined_image.paste(image1, (0, 0))
+    combined_image.paste(image2, (combined_width-image2.width, 0))
+
+    return combined_image
 
 def create_game_image(awayLogoURL: str, homeLogoURL: str, awayShortName: str, homeShortName: str, score_string: str, state_string: str) -> Image:
     # Load team logos for display
