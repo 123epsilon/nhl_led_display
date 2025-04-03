@@ -20,7 +20,8 @@ def get_led_matrix_options():
     options = RGBMatrixOptions()
     options.rows = MATRIX_ROWS
     options.cols = MATRIX_COLS
-    options.chain_length = 1
+    options.brightness = 100
+    options.chain_length = 2
     options.parallel = 1
     options.gpio_slowdown = 2
     options.hardware_mapping = 'adafruit-hat'

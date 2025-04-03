@@ -22,9 +22,9 @@ def scroll_game_image(game_info):
         x_offset = combined_image_width
         canvas = matrix.CreateFrameCanvas()
         # While image is on screen
-        while x_offset >= -MATRIX_COLS:
+        while x_offset >= -MATRIX_COLS*options.chain_length:
             # Create a canvas sized to the LED matrix display
-            display_region = combined_image.crop((x_offset, 0, x_offset + MATRIX_COLS, MATRIX_ROWS))
+            display_region = combined_image.crop((x_offset, 0, x_offset + (MATRIX_COLS*options.chain_length), MATRIX_ROWS))
             canvas.SetImage(display_region, 0, 0)
 
             # Scroll left by one pixel
