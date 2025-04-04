@@ -23,6 +23,6 @@ def get_led_matrix_options():
     options.brightness = 100
     options.chain_length = 2
     options.parallel = 1
-    options.gpio_slowdown = 2
+    options.gpio_slowdown = 4
     options.hardware_mapping = 'adafruit-hat'
     return options
