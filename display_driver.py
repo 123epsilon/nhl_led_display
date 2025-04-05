@@ -56,9 +56,6 @@ if __name__ == "__main__":
     else:
         game_data.extend(yesterday_game_data)
 
-
-    
-
     # loop and display
     start = time.time()
     while True:
