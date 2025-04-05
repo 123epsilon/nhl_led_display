@@ -1,5 +1,6 @@
 import time
 from typing import List
+import datetime
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from image_utils import create_game_image, get_disconnect_image, concatenate_images
 from data_utils import get_daily_game_info
@@ -44,12 +45,20 @@ def scroll_game_image(game_infos: List[dict]):
         # Graceful exit on Ctrl+C
         pass
 
-
 if __name__ == "__main__":
     game_data = get_daily_game_info()
-    if game_data is None:
+    yesterday_date = datetime.date.today() - datetime.timedelta(days=1)
+    yesterday_date_str = yesterday_date.strftime("%Y-%m-%d")
+    yesterday_game_data = get_daily_game_info(yesterday_date_str)
+
+    if game_data is None or yesterday_game_data is None:
         game_data = [None]
+    else:
+        game_data.extend(yesterday_game_data)
+
+
     
+
     # loop and display
     start = time.time()
     while True:

@@ -3,12 +3,13 @@ from typing import List
 import json
 import sys
 
-def get_daily_game_info() -> List[dict]:
+def get_daily_game_info(date="now") -> List[dict]:
     """
     Retrieves today's game data from the NHL API and extracts useful 
     display data such as team names, score, and game state.
     """
-    url = "https://api-web.nhle.com/v1/score/now"
+
+    url=f"https://api-web.nhle.com/v1/score/{date}"
     response = requests.get(url)
     if not response.ok:
         return None
