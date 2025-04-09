@@ -49,17 +49,20 @@ sudo raspi-config
 Then, visit `System Settings > Network` to edit your WPA2 credentials.
 
 ## Using `NetworkManager`
-When you flash your Raspberry Pi OS for the first time, you'll get the opportunity to preconfigure a wireless network so that you can immediately `ssh` onto the board. The `NetworkManager` utility allows you to change this setting or add more wireless networks to your board's configuration. You can use the `nmcli` tool, but it's sometimes more expedient to just create a new `nmconnection` file manually.
+When you flash your Raspberry Pi OS for the first time, you'll get the opportunity to preconfigure a wireless network so that you can immediately `ssh` onto the board. The `NetworkManager` utility allows you to change this setting or add more wireless networks to your board's configuration. You can use the `nmcli` tool, but it's sometimes more expedient to just create a new `.nmconnection` file manually.
 
 ```bash
-cd /etc/system/NetworkManager/system-connections
+cd /etc/NetworkManager/system-connections
 sudo nano preconfigured.nmconnection # edit existing configuration
-sudo nano <network_name>.nmconnection
+sudo nano <network_name>.nmconnection # create a new network configuration
 ```
 ### Example Connection File
+Below is an example `.nmconnection` file. The `id` field can be whatever name you want, the `uuid` field should be a uuid generated either via `uuidgen` or [some website](https://www.uuidgenerator.net/), `ssid` should be the name of your wifi network, and `psk` should be the wifi password.
+
 ```bash
 [connection]
 id=<network_name>
+uuid=<uuid>
 type=wifi
 
 [wifi]
@@ -112,7 +115,7 @@ WorkingDirectory=/path/to/nhl_led_display
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-User=pi
+User=<user>
 
 [Install]
 WantedBy=multi-user.target
